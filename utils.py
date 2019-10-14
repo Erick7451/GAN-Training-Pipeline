@@ -13,29 +13,6 @@ def conv_idx(model):
 
 
 
-def conv_output(self, input, output):
-    # input is a tuple of packed inputs
-    # output is a Tensor. output.data is the Tensor we are interested
-
-    if self.__class__.__name__.__contains__("Conv"):
-
-        print('Inside ' + self.__class__.__name__ + ' forward')
-        print('')
-        print('input size:', input[0].size())
-        print('output size:', output.data.size())
-        output_dims.append(output.data.shape)
-        print("-"*80)
-
-def forward_hooks(sub_model):
-    sub_model.register_forward_hook(conv_output)
-
-output_dims = []
-def extract_conv_output_dims(model,input):
-    m = copy.copy(model) # do NOT perform hooks in-place. Build copy
-    m.apply(forward_hooks)
-    m(input)
-
-
 def extract_convs_as_str(model):
     idxs = conv_idx(model) # attain index of children that contain convolutions when print(model)
     conv_params = np.array(list(model.children()))[0][idxs] # extract children parameters with "Conv"
