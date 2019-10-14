@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import pandas as pd
-
+from utils import *
 
 def train_GAN(netD,netG,optimizerD,optimizerG,criterion, num_epochs, dataloader):
 
